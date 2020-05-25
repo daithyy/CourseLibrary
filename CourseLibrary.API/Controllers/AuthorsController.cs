@@ -20,8 +20,7 @@ namespace CourseLibrary.API.Controllers
         public IActionResult GetAuthors()
         {
             var authorsFromRepo = _courseLibraryRepository.GetAuthors();
-            return new JsonResult(authorsFromRepo);
-            //return new JsonResult(_courseLibraryRepository.GetAuthors());
+            return Ok(authorsFromRepo);            
         }
 
         //[HttpGet("{authorId:guid}")]
@@ -29,8 +28,11 @@ namespace CourseLibrary.API.Controllers
         public IActionResult GetAuthor(Guid authorId)
         {
             var authorFromRepo = _courseLibraryRepository.GetAuthor(authorId);
-            return new JsonResult(authorFromRepo);
-            //return new JsonResult(_courseLibraryRepository.GetAuthor(authorId));
+
+            if (authorFromRepo == null)
+                return NotFound();
+
+            return Ok(authorFromRepo);            
         }
     }
 }

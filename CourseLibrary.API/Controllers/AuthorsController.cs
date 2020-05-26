@@ -41,7 +41,7 @@ namespace CourseLibrary.API.Controllers
             if (authorFromRepo == null)
                 return NotFound();
 
-            return Ok(authorFromRepo);            
+            return Ok(_mapper.Map<AuthorDto>(authorFromRepo));            
         }
     }
 }

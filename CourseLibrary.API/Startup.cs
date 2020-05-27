@@ -1,11 +1,12 @@
 using AutoMapper;
 using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Services;
+using CourseLibrary.API.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +51,7 @@ namespace CourseLibrary.API
 
                         // If there are modelstate errors & all arguments are correctly
                         // found/parsed we're dealing with validation errors
-                        if ((context.ModelState.ErrorCount > 0) && 
+                        if ((context.ModelState.ErrorCount > 0) &&
                             (actionExecutingContext?.ActionArguments.Count ==
                              context.ActionDescriptor.Parameters.Count))
                         {
@@ -75,6 +76,9 @@ namespace CourseLibrary.API
                         };
                     };
                 });
+
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseForCreationValidator>());
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
              

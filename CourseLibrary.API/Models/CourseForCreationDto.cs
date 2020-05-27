@@ -1,14 +1,11 @@
-﻿using CourseLibrary.API.ValidationAttributes;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using CourseLibrary.API.Validators.ValidationAttributes;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferentFromDescription]
-    public class CourseForCreationDto : IValidatableObject
+    //[TitleDescription]
+    public class CourseForCreationDto //: IValidatableObject
     {
         [Required]
         [MaxLength(100)]
@@ -17,14 +14,14 @@ namespace CourseLibrary.API.Models
         public string Description { get; set; }
         public Guid AuthorId { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (Title == Description)
-            {
-                yield return new ValidationResult(
-                    "The provided description should be different from the title.",
-                    new[] { "CourseForCreationDto" });
-            }
-        }
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (Title == Description)
+        //    {
+        //        yield return new ValidationResult(
+        //            "The provided description should be different from the title.",
+        //            new[] { "CourseForCreationDto" });
+        //    }
+        //}
     }
 }
